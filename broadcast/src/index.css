@@ -291,7 +291,7 @@ input[data-autocompleted] {
 /* App.css */
 .purple-background {
   background-color: #E85C0D;
-  height: 80vh;
+  height: 65vh;
   width: 100vw;
   clip-path: ellipse(70% 100% at 2% 99%);
   position: absolute;
