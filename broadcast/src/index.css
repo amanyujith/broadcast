@@ -283,3 +283,76 @@ input:-webkit-autofill:focus {
 input[data-autocompleted] {
   background-color: transparent !important;
 }
+
+
+
+/*Profile page */
+
+/* App.css */
+.purple-background {
+  background-color: #E85C0D;
+  height: 80vh;
+  width: 100vw;
+  clip-path: ellipse(70% 100% at 2% 99%);
+  position: absolute;
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 50px;
+  left: 50%;
+  transform: translateX(-45%) translateY(15%);
+  bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  .purple-background {
+    display: flex; /* Display when screen size is lg or larger */
+  }
+}
+
+.profile-img {
+  border-radius: 50%;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease-in-out;
+}
+
+.top-right-extension {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #E85C0D;
+  width: 300px;
+  height: 300px;
+  display: none; /* Initially hidden */
+}
+
+@media (min-width: 1024px) {
+  .top-right-extension {
+    display: block; /* Show when screen size is lg or larger */
+  }
+}
+
+.top-right-extension div {
+  clip-path: ellipse(100% 100% at 2% 99%);
+}
+
+/* TeamMemberCard.css */
+/* .team-member-card {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+} */
+
+/* StatisticCard.css */
+.stat-card {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0);
+  
+}
+
+/* .navbar.logo {
+  background-color: rgba(0, 0, 0, 1);
+} */
+
+
