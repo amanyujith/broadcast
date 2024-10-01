@@ -3,7 +3,7 @@ interface TableProps {
   heading: string[];
   data: Record<string, string | number | undefined>[]; 
 }
-
+import '../../App.css'
 export const Table: React.FC<TableProps> = ({ heading, data }) => {
     const disableStatus = [
         {key: 'Parameter' , title:'Parameter' , disabled:true},
@@ -111,6 +111,7 @@ if (
     return length; 
 };
   return (
+    <div className="pt-[80px]">
     <table className="min-w-full bg-white border border-none border-collapse p-5">
       <thead className="bg-red-50 hover:bg-yellow-50">
         <tr className="">
@@ -228,6 +229,7 @@ console.log("totalSum",totalSum);
         })}
       </tbody>
     </table>
+    </div>
   );
 };
 

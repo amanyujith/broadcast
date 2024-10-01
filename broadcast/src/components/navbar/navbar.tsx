@@ -16,15 +16,15 @@ const Navbar = () => {
     clearDB()
   }
   return (
-    <div className=" fixed top-0 left-0 w-full px-[24px] py-[12px] h-[80px] bg-white flex z-50">
+    <div className="navbar fixed  right-0 w-full px-[24px] py-[12px] h-[80px] bg-white flex z-50">
       <div className="w-[50%] h-full flex  items-center  ">
         <Logo/>
         <Topbar/>
       </div>
-      <div className="w-[50%] h-full flex gap-2 items-center justify-end " >
+      <div className="w-[50%] h-full flex gap-[10.5px] items-center justify-end " >
         {/* <img src={notficationIcon} className='cursor-pointer'/> */}
-        <span className="font-bold cursor-pointer" onClick={()=>navigate('/settings')}>Settings</span>
-        <img onClick={()=>handleLogout()} src={settingsIcon} className='cursor-pointer'/>
+        <span className="font-semibold font-sans text-white cursor-pointer" onClick={()=>navigate('/settings')}>Settings</span>
+        <img onClick={()=>handleLogout()} src={settingsIcon} className='cursor-pointer -mr-3'/>
         {/* <ProfileButton/> */}
       </div>
     </div>

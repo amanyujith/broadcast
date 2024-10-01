@@ -126,7 +126,7 @@ export const Data = () => {
   ];
 
   return (
-    <div>
+    <div className=''>
       <Table heading={heading} data={data} />
     </div>
   );
