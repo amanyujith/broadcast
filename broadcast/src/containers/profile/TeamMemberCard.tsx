@@ -7,11 +7,12 @@ interface TeamMemberProps {
   title: string;
   bio: string;
   image: string;
-  clientRate: string;
+  Score: string;
   experience: string;
 }
 
-const TeamMemberCard: React.FC<TeamMemberProps> = ({ name, title, bio, image, clientRate, experience }) => {
+const TeamMemberCard: React.FC<TeamMemberProps> = ({ name, title, bio, image, Score, experience }) => {
+  
   return (
     <div className="team-member-card bg-white rounded-[10px] p-[30px] max-w-full text-left mt-10">
       <div className="team-info">
@@ -20,8 +21,8 @@ const TeamMemberCard: React.FC<TeamMemberProps> = ({ name, title, bio, image, cl
         <Button text="SHORT BIO" />
         <p className="bio mt-6 text-[#666] leading-[1.6] text-xl">{bio}</p>
         <div className="statistics flex justify-between mt-14">
-          <StatisticCard value={clientRate} label="Client Rate" />
-          <StatisticCard value={experience} label="Years Experienced" />
+          <StatisticCard value={Score} label="Score" />
+          <StatisticCard value={experience} label="Experience" />
         </div>
       </div>
     </div>

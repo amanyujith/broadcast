@@ -12,7 +12,7 @@ const ProfileButton = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <CircleUserRound className={` ${isProfilePage ?'text-white': 'text-black'} cursor-pointer size-8`}/>
+                <CircleUserRound className={` ${isProfilePage ?'text-black': 'text-black'} cursor-pointer size-8`}/>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

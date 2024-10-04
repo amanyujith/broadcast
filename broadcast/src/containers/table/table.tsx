@@ -4,17 +4,20 @@ interface TableProps {
   data: Record<string, string | number | undefined>[]; 
 }
 import '../../App.css'
+import { useDispatch } from "react-redux";
+import { setScore } from "@/redux/slices/score/scoreSlice";
 export const Table: React.FC<TableProps> = ({ heading, data }) => {
+  const dispatch = useDispatch();
     const disableStatus = [
         {key: 'Parameter' , title:'Parameter' , disabled:true},
         { key: 'HistoricalWeightage', title: 'Historical Weightage', disabled: false },
         { key: 'LastMonthWeightage', title: 'Last Month Weightage', disabled: false },
         { key: 'TotalWeightage(%)', title: 'TotalWeightage(%)', disabled: true },
         { key: 'HistoricalPerformed', title: 'Historical Performed', disabled: false },
-        { key: 'HistoricalActual', title: 'Historical Actual', disabled: true },
+        { key: 'HistoricalActual', title: 'Historical Actual', disabled: false },
         {key:'Formula' , title:'Formula' , disabled:true},
         { key: 'Performed', title: 'Performed', disabled: false },
-        { key: 'Actual', title: 'Actual', disabled: true },
+        { key: 'Actual', title: 'Actual', disabled: false },
         {key: 'Total', title:'Total', disabled:true},
         {key: 'HistoryTotal', title:'HistoryTotal', disabled:true},
         {key: 'Weightage', title:'Weightage', disabled:true}
@@ -26,6 +29,8 @@ export const Table: React.FC<TableProps> = ({ heading, data }) => {
     totalWeightage: 0,
   });
   useEffect(()=>{
+    //Historical,Lastmonth,Total - Weightage
+
     const historicalSum = tableData.reduce((total,row)=>{
     const weightage= parseFloat(row["HistoricalWeightage(%)"] as string ) || 0;
     return total+weightage;
@@ -43,7 +48,7 @@ export const Table: React.FC<TableProps> = ({ heading, data }) => {
         historicalSum,
         lastMonthSum,
         totalWeightage
-      })
+      })    
   },[tableData])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, fieldName: string) => {
@@ -112,6 +117,7 @@ if (
 };
   return (
     <div className="pt-[80px]">
+      
     <table className="min-w-full bg-white border border-none border-collapse p-5">
       <thead className="bg-red-50 hover:bg-yellow-50">
         <tr className="">
@@ -141,19 +147,23 @@ let weightagePercentage = 0;
 let score= 0 ;
 tableData.forEach((row) => {
     const { total, historyTotal, weightage } = calculateValues(row);
+    //sum of HistoryTotal,Total,Weightage
     totalSum += total;
     historyTotalSum += historyTotal;
     weightageSum += weightage;
-    //
+    //percentage
     historyPercentage = historyTotalSum/weightageSums.historicalSum * 100;
     totalPercentage = totalSum/weightageSums.lastMonthSum *100;
     weightagePercentage = weightageSum / weightageSums.totalWeightage*100
-    //
-    score=600+weightagePercentage*3;
+    //score
+    score=600+weightagePercentage*4;
+    dispatch(setScore(score));
+    console.log("typeofScore",typeof(score));
+    
 });
 
 console.log("totalSum",totalSum);
-
+          // <Profile score={score.toString()}/>
           return (
             <tr key={rowIndex} className="bg-gray-100">
               {heading.map((header, colIndex) => {

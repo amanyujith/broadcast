@@ -293,6 +293,8 @@ input[data-autocompleted] {
   background-color: #E85C0D;
   height: 65vh;
   width: 100vw;
+  min-height: 457px;
+  min-width: 1550px;
   clip-path: ellipse(70% 100% at 2% 99%);
   position: absolute;
   display: none; /* Initially hidden */
