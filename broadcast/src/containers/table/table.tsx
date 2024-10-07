@@ -30,7 +30,6 @@ export const Table: React.FC<TableProps> = ({ heading, data }) => {
   });
   useEffect(()=>{
     //Historical,Lastmonth,Total - Weightage
-
     const historicalSum = tableData.reduce((total,row)=>{
     const weightage= parseFloat(row["HistoricalWeightage(%)"] as string ) || 0;
     return total+weightage;
@@ -54,44 +53,41 @@ export const Table: React.FC<TableProps> = ({ heading, data }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, fieldName: string) => {
     const { value } = e.target;
     console.log('value',value);
-
-    const actualLength = (tableData[rowIndex].Actual as string)?.length || 0;
-    const historicalActualLength = (tableData[rowIndex].HistoricalActual as string)?.length || 0;
-
-if (
-  (fieldName === 'Performed' && value.length > actualLength) ||
-  (fieldName === 'HistoricalPerformed' && value.length > historicalActualLength)
-) {
-  return; 
-}
+    const actualValue = Number(tableData[rowIndex].Actual);
+    const historyValue = Number(tableData[rowIndex].HistoricalActual);
+    if (
+      // (fieldName === 'Performed' && value.length > actualLength) 
+      // (fieldName === 'HistoricalPerformed' && value.length > historicalActualLength)
+      (fieldName === 'Performed' && +value > actualValue) ||
+      (fieldName === 'HistoricalPerformed' && +value > historyValue)
+    ) {
+      return; 
+    }
     const updatedData = tableData.map((row, index) =>
       index === rowIndex ? { ...row, [fieldName]: value } : row
     );
     setTableData(updatedData);
   };
   const calculateValues = (row: any) => {
-    const actual = parseFloat(row.Actual) || 1;
-    const historicalActual = parseFloat(row.HistoricalActual) || 1;
+    const actual = parseFloat(row.Actual) ;
+    const historicalActual = parseFloat(row.HistoricalActual) ;
 
-    // const performed = parseFloat(row.Performed) || 0;
-    // const historicalPerformed = parseFloat(row.HistoricalPerformed) || 0;
+    const performed = parseFloat(row.Performed) || 0;
+    const historicalPerformed = parseFloat(row.HistoricalPerformed) || 0;
 
-    const performed = Math.min(parseFloat(row.Performed) || 0, actual);
-  const historicalPerformed = Math.min(parseFloat(row.HistoricalPerformed) || 0, historicalActual);
+  //   const performed = Math.min(parseFloat(row.Performed) || 0, actual);
+  // const historicalPerformed = Math.min(parseFloat(row.HistoricalPerformed) || 0, historicalActual);
 
     const lastMonthWeightage = row["LastMonthWeightage(%)"];
     const historicalWeightage = row["HistoricalWeightage(%)"];
     
-    // const validatedPerformed = Math.min(performed, actual);
-    // const validatedHistoricalPerformed = Math.min(historicalPerformed, historicalActual);
     //console
     console.log("per",performed);
     console.log("act",actual);
     console.log("last",lastMonthWeightage);
     // console.log(typeof(lastMonthWeightage));
-    
+        
     let total = lastMonthWeightage !== 0 ? (performed / actual ) * lastMonthWeightage : 0;
-    // let total = (performed <= actual && lastMonthWeightage !== 0) ? (performed / actual) * lastMonthWeightage : 0;
     if (Number.isNaN(total) || !Number.isFinite(total)) total = 0;  
 
     let historyTotal = historicalWeightage !== 0 ? (historicalPerformed / historicalActual ) * historicalWeightage : 0;
@@ -220,17 +216,6 @@ console.log("totalSum",totalSum);
                       onChange={(e) => handleInputChange(e, rowIndex, fieldName)}
                       className={`w-full  p-1 hover:bg-green-50 ${isFieldDisabled(fieldName) ? 'bg-slate-100' : 'bg-[#ffffff]'}   outline-none outline-offset-0 relative z-0 focus:outline-blue-500 focus:outline-offset-0 focus:z-10 `}
                     />
-                     {/* style={{ width: `${calculateInputSize(String(inputValue))}ch` }}  */}
-                      {/* style={{ width: '100%' }} */}
-                    {/* ) : fieldName === 'Total' ? (
-                      <span>{total & +total.toFixed(2)}</span>
-                    ) : fieldName === 'HistoryTotal' ? (
-                      <span>{historyTotal & +historyTotal.toFixed(2)}</span>
-                    ) : fieldName === 'Weightage' ? (
-                      <span>{weightage & +weightage.toFixed(2)}</span>
-                    ) : (
-                      <span>{row[fieldName]}</span>
-                    )} */}
                   </td>
                 );
               })}

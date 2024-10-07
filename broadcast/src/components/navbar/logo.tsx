@@ -1,13 +1,12 @@
 import NCSlogo from '../../assets/images/ncs.png'
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const Logo = () => {
+  const navigate = useNavigate();
   return (
     <div className='flex gap-[6px] ' >
-         <Link to="/">
-            <img src={NCSlogo} className="size-6" alt="NCS Logo" />
-        </Link>
-      <span className="font-mono font-semibold text-lg text-orange-700">SCORES</span>
+            <img src={NCSlogo} className="size-6 cursor-pointer" alt="NCS Logo" onClick={()=>navigate('/')}/>
+      <span className="font-mono font-semibold text-lg text-orange-700 cursor-pointer" onClick={()=>navigate('/')}>SCORES</span>
+      
     </div>
   )
 }

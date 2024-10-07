@@ -1,8 +1,8 @@
 // import ContactList from "@/containers/contactList/contactList";
 import ErrorPage from "@/containers/errorPage/errorPage";
 import Layout from "@/containers/layout/layout";
-import Profile from "@/containers/profile/Profile";
-import Settings from "@/containers/settings/settings";
+import Profile from "@/containers/profile/profile";
+import Quiz from "@/containers/steps/quiz/quiz";
 import { Data } from "@/containers/table/data";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -21,8 +21,8 @@ export const router = createBrowserRouter([
         element: <Data/>,
       },
       {
-        path: "/settings",
-        element: <Settings/>,
+        path: "/steps",
+        element:<Quiz/>,
       },
     ],
   },

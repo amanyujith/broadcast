@@ -49,7 +49,7 @@ function Profile() {
           </h1> */}
         </div>
       </div>
-      <div className="right-section bg-[#E85C0D] lg:bg-white grid justify-center items-center p-[20px] lg:p-[50px] w-full lg:w-[53%] h-full overflow-y-auto">
+      <div className="right-section bg-[#E85C0D] lg:bg-white grid justify-center items-center p-[20px] lg:p-[50px] w-full lg:w-[53%] min-h-screen">
         <TeamMemberCard {...teamMember} />
       </div>
       <div className="top-right-extension">
