@@ -8,7 +8,9 @@ const  Quiz =()=> {
     const [score , setScore] = useState(0);
     const [currentQuestionIndex , setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer , setSelectedAnswer] = useState("");
-    const [modal , setModal] = useState(false)
+    const [modal , setModal] = useState(false);
+    const [correctAnswers , setCorrectAnswers] = useState<{ [key: number]: boolean }>({})
+    // const [isSaveDisabled , setIsSaveDisabled] = useState(false) ;
     const currentQuestion = quizData.questions[currentQuestionIndex];
     const questionNumbers = Array.from({ length: quizData.questions.length }, (_, i) => i + 1);
 
@@ -17,14 +19,30 @@ const  Quiz =()=> {
         console.log("se",selectedAnswer);
         console.log('cu', currentQuestion.answer);
         console.log("score1",score);
-            if(selectedAnswer===currentQuestion.answer){
-                console.log("score",score);
-                setScore(score+1);
+            // if(selectedAnswer===currentQuestion.answer){
+            //     console.log("score",score);
+            //     setScore(score+1);
                 
+            // }
+            // else{
+            //     setScore(score)
+            // }
+            const isCorrect = selectedAnswer === currentQuestion.answer;
+            const wasCorrectBefore = correctAnswers[currentQuestionIndex];
+
+            if(isCorrect){
+                if(!wasCorrectBefore){
+                    setScore(score+1)
+                }
             }
             else{
-                setScore(score-1)
+                if(wasCorrectBefore){
+                    setScore(score-1)
+                }
             }
+            setCorrectAnswers({
+                ...correctAnswers,[currentQuestionIndex]:isCorrect
+            });
             console.log("score22222",score);
             
             if(currentQuestionIndex < quizData.questions.length-1){
@@ -32,8 +50,23 @@ const  Quiz =()=> {
             }else{
                 setModal(true);
             }
+            // setIsSaveDisabled(false);
             setSelectedAnswer("")
     }
+    const handlePrevClick = () => {
+       
+        //   setIsSaveDisabled(false);
+          setCurrentQuestionIndex(currentQuestionIndex - 1); 
+          setSelectedAnswer("")
+        
+      };
+      const handleNextClick = () => {
+      
+        //   setIsSaveDisabled(false);
+          setCurrentQuestionIndex(currentQuestionIndex + 1); 
+          setSelectedAnswer("")
+     
+      };
     const closeModal = () => {
         navigate('/')
       };
@@ -46,7 +79,7 @@ const  Quiz =()=> {
             <Button className={`optionButton my-2 whitespace-normal shadow-none w-full p-7 ${
     selectedAnswer === key ? 'bg-blue-400 text-white hover:bg-blue-500' : 'bg-red-50 hover:bg-red-100'
   } hover:border-black  `}
-            onClick={()=>setSelectedAnswer(key)}
+            onClick={()=>{setSelectedAnswer(key); }}
             >
                 {option}
             </Button>
@@ -61,7 +94,7 @@ const  Quiz =()=> {
           </div>
         ))}
     {/* <button onClick={handleSave} className="bg-slate-300"  disabled={!selectedAnswer}>Save</button> */}
-    <Button onClick={()=>{handleSave()}}
+    <Button onClick={()=>{handleSave() }}
         variant="default"
         size="default"
         disabled={!selectedAnswer}
@@ -83,8 +116,7 @@ const  Quiz =()=> {
       
       {/* <button onClick={()=>setCurrentQuestionIndex(currentQuestionIndex-1)} className="bg-slate-300">Prev</button> */}
       <Button 
-                onClick={() => {setSelectedAnswer(""); setCurrentQuestionIndex(currentQuestionIndex - 1)
-                   } }
+                 onClick={()=>handlePrevClick()}
                 variant="secondary"
                 size="default"
                 disabled={currentQuestionIndex === 0} 
@@ -93,7 +125,7 @@ const  Quiz =()=> {
                 Prev
             </Button>
             <Button 
-                onClick={() => {setSelectedAnswer(""); setCurrentQuestionIndex(currentQuestionIndex + 1)}} 
+                onClick={()=>handleNextClick()} 
                 variant="secondary"
                 size="default"
                 disabled={currentQuestionIndex === quizData.questions.length-1} 
