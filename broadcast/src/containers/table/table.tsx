@@ -53,16 +53,16 @@ export const Table: React.FC<TableProps> = ({ heading, data }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, rowIndex: number, fieldName: string) => {
     const { value } = e.target;
     console.log('value',value);
-    const actualValue = Number(tableData[rowIndex].Actual);
-    const historyValue = Number(tableData[rowIndex].HistoricalActual);
-    if (
-      // (fieldName === 'Performed' && value.length > actualLength) 
-      // (fieldName === 'HistoricalPerformed' && value.length > historicalActualLength)
-      (fieldName === 'Performed' && +value > actualValue) ||
-      (fieldName === 'HistoricalPerformed' && +value > historyValue)
-    ) {
-      return; 
-    }
+    // const actualValue = Number(tableData[rowIndex].Actual);
+    // const historyValue = Number(tableData[rowIndex].HistoricalActual);
+    // if (
+    //   // (fieldName === 'Performed' && value.length > actualLength) 
+    //   // (fieldName === 'HistoricalPerformed' && value.length > historicalActualLength)
+    //   (fieldName === 'Performed' && +value > actualValue) ||
+    //   (fieldName === 'HistoricalPerformed' && +value > historyValue)
+    // ) {
+    //   return; 
+    // }
     const updatedData = tableData.map((row, index) =>
       index === rowIndex ? { ...row, [fieldName]: value } : row
     );

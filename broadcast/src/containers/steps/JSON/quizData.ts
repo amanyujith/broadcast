@@ -2,7 +2,7 @@ const quizData = {
     "questions": [
       {
         "type": "multiple-choice",
-        "question": "Which of the following is **not** a fundamental force in physics?",
+        "question": "Which of the following is not a fundamental force in physics?",
         "options": {
           "A": "Gravity",
           "B": "Electromagnetism",
@@ -40,7 +40,7 @@ const quizData = {
           "A" : "True",
           "B" : "False"
         },
-        "answer": "True"
+        "answer": "A"
       },
       {
         "type": "multiple-choice",
@@ -82,7 +82,7 @@ const quizData = {
       //     "A" : "True",
       //     "B" : "False"
       //   },
-      //   "answer": "True"
+      //   "answer": "A"
       // },
       // {
       //   "type": "multiple-choice",
