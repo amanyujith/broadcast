@@ -22,9 +22,9 @@ const  Quiz =()=> {
                 setScore(score+1);
                 
             }
-            // else{
-            //     setScore(score+0)
-            // }
+            else{
+                setScore(score-1)
+            }
             console.log("score22222",score);
             
             if(currentQuestionIndex < quizData.questions.length-1){
