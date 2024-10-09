@@ -4,17 +4,18 @@ import Modal from "@/components/atom/modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import QuizResult from "./quizResult";
 const Quiz = () => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [modal, setModal] = useState(false);
+  const [quizCompleted , setQuizCompleted] = useState(false)
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
 
-  // const [isSaveDisabled , setIsSaveDisabled] = useState(false) ;
   const currentQuestion = quizData.questions[currentQuestionIndex];
   const questionNumbers = Array.from(
     { length: quizData.questions.length },
@@ -49,16 +50,13 @@ const Quiz = () => {
     if (currentQuestionIndex < quizData.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
-    // setIsSaveDisabled(false);
     setSelectedAnswer("");
   };
   const handlePrevClick = () => {
-    //   setIsSaveDisabled(false);
     setCurrentQuestionIndex(currentQuestionIndex - 1);
     setSelectedAnswer("");
   };
   const handleNextClick = () => {
-    //   setIsSaveDisabled(false);
     setCurrentQuestionIndex(currentQuestionIndex + 1);
     setSelectedAnswer("");
   };
@@ -66,9 +64,13 @@ const Quiz = () => {
     navigate("/");
   };
   return (
+    <div className="">
+         {!quizCompleted ?(
+            <>
     <div className="flex justify-center items-center w-full h-screen ">
-      <div className="mt-20 ml-5 w-full max-w-lg shadow-lg rounded-lg p-8">
-        <p>
+      <div className="mt-20 ml-5 w-full max-w-lg shadow-lg rounded-lg p-8 ">
+       
+        <p className="font-semibold">
           <span>{currentQuestionIndex + 1}. </span>
           {currentQuestion.question}
         </p>
@@ -95,7 +97,10 @@ const Quiz = () => {
           primarybutton
           primaryValue="Close"
           primaryAction={closeModal}
-          classname="min-h-5"
+          secondarybutton
+          secondaryValue="Results"
+          secondaryAction={()=>setQuizCompleted(true)}
+          classname="min-h-8"
         >
           <p className="text-center">Your total score is: {score}</p>
         </Modal>
@@ -109,7 +114,7 @@ const Quiz = () => {
               variant="default"
               size="default"
               disabled={!selectedAnswer}
-              className="text-black font-bold  bg-white"
+              className="text-black font-bold  bg-orange-400 hover:bg-orange-500 hover:border-none"
             >
               SAVE
             </Button>
@@ -120,7 +125,7 @@ const Quiz = () => {
                 variant="secondary"
                 size="default"
                 disabled={currentQuestionIndex === 0}
-                className="m-2 bg-yellow-100"
+                className="m-2 bg-yellow-100 hover:bg-yellow-50 hover:border-black"
               >
                 <ChevronLeft />
               </Button>
@@ -130,14 +135,16 @@ const Quiz = () => {
                 disabled={
                   currentQuestionIndex === quizData.questions.length - 1
                 }
-                className="m-2 bg-yellow-100"
+                className="m-2 bg-yellow-100 hover:bg-yellow-50 hover:border-black"
               >
                 <ChevronRight size={20} />
               </Button>
             </div>
 
-            <Button onClick={() => setModal(true)} size="default">
-              Submit
+            <Button onClick={() => setModal(true)} size="default"
+            className="bg-orange-400 hover:bg-orange-500 hover:border-none text-black font-bold"
+            >
+              SUBMIT
             </Button>
           </div>
           <div className="grid grid-cols-5">
@@ -152,16 +159,19 @@ const Quiz = () => {
                 size="sm"
                 className={`p-2 m-2 ${
                   selectedAnswers[number - 1]
-                    ? "bg-green-400 text-white"
-                    : "bg-slate-300"
-                } ${currentQuestionIndex === number - 1 ? "bg-blue-400 text-white" : ""}`}
+                    ? "bg-green-400 hover:bg-green-400 text-white"
+                    : "bg-slate-200 hover:bg-slate-200"
+                } ${currentQuestionIndex === number - 1 ? "bg-blue-400  hover:bg-blue-400 " : ""}hover:border-black`}
               >
                 {number}
               </Button>
             ))}
           </div>
+        </div></div>
         </div>
-      </div>
+        </>
+        ):<QuizResult selectedAnswers={selectedAnswers} questionNumbers={questionNumbers}/>}
+    
     </div>
   );
 };

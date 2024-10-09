@@ -46,11 +46,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children,title, classnam
                     </div>}
                     {children}
                 </div>
-                 <div className='w-full self-stretch  flex gap-2'>
-                    {secondarybutton && <Button className='bg-transparent hover:bg-slate-100 w-full' onClick={secondaryAction}>
+                 <div className='w-full self-stretch  flex gap-2 justify-between'>
+                    {secondarybutton && <Button className='bg-transparent hover:bg-slate-100 w-fit hover:border-black' onClick={secondaryAction}>
                         {secondaryValue}
                     </Button>}
-                    {primarybutton &&<Button onClick={primaryAction} className='w-full'>
+                    {primarybutton &&<Button onClick={primaryAction} className='w-fit bg-orange-400 font-bold hover:bg-orange-500 hover:border-black'>
                         {primaryValue}
                     </Button>}
                 </div>
