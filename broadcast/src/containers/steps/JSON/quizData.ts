@@ -53,59 +53,62 @@ const quizData = {
         },
         "answer": "D"
       },
-      // {
-      //   "type": "multiple-choice",
-      //   "question": "What is the equation for the wavelength of a photon?",
-      //   "options": {
-      //     "A": "λ = hc/E",
-      //     "B": "λ = E/hc",
-      //     "C": "λ = h/Ec",
-      //     "D": "λ = Ehc"
-      //   },
-      //   "answer": "A"
-      // },
-      // {
-      //   "type": "multiple-choice",
-      //   "question": "What is the spin quantum number for an electron?",
-      //   "options": {
-      //     "A": 0,
-      //     "B": 1/2,
-      //     "C": 1,
-      //     "D": 2
-      //   },
-      //   "answer": "B"
-      // },
-      // {
-      //   "type": "true-false",
-      //   "question": "The Pauli exclusion principle states that no two electrons can have the same set of quantum numbers.",
-      //   "options":{
-      //     "A" : "True",
-      //     "B" : "False"
-      //   },
-      //   "answer": "A"
-      // },
-      // {
-      //   "type": "multiple-choice",
-      //   "question": "What is the origin of the Casimir effect?",
-      //   "options": {
-      //     "A": "The quantum vacuum is not empty, but contains virtual particles.",
-      //     "B": "The uncertainty principle allows particles to exist for a short time with negative energies.",
-      //     "C": "The interaction of photons with the vacuum creates a force that pushes objects together.",
-      //     "D": "The gravitational force is stronger than the electromagnetic force at very small distances."
-      //   },
-      //   "answer": "A"
-      // },
-      // {
-      //   "type": "multiple-choice",
-      //   "question": "What is the holographic principle?",
-      //   "options": {
-      //     "A": "The maximum amount of information that can be stored in a region of spacetime is proportional to the surface area of that region.",
-      //     "B": "The information contained in a physical system is encoded on the boundary of that system.",
-      //     "C": "The universe is a giant hologram, projected from a lower-dimensional surface.",
-      //     "D": "All of the above"
-      //   },
-      //   "answer": "D"
-      // }
+      {
+        "type": "multiple-choice",
+        "question": "What is the equation for the wavelength of a photon?",
+        "options": {
+          "A": "λ = hc/E",
+          "B": "λ = E/hc",
+          "C": "λ = h/Ec",
+          "D": "λ = Ehc"
+        },
+        "answer": "A"
+      },
+      {
+        "type": "multiple-choice",
+        "question": "What is the spin quantum number for an electron?",
+        "options": {
+          "A": 0,
+          "B": 1/2,
+          "C": 1,
+          "D": 2
+        },
+        "answer": "B"
+      },
+      {
+        "type": "true-false",
+        "question": "The Pauli exclusion principle states that no two electrons can have the same set of quantum numbers.",
+        "options":{
+          "A" : "True",
+          "B" : "False"
+        },
+        "answer": "A"
+      },
+      {
+        "type": "multiple-choice",
+        "question": "What is the origin of the Casimir effect?",
+        "options": {
+          "A": "The quantum vacuum is not empty, but contains virtual particles.",
+          "B": "The uncertainty principle allows particles to exist for a short time with negative energies.",
+          "C": "The interaction of photons with the vacuum creates a force that pushes objects together.",
+          "D": "The gravitational force is stronger than the electromagnetic force at very small distances."
+        },
+        "answer": "A"
+      },
+      {
+        "type": "multiple-choice",
+        "question": "What is the holographic principle?",
+        "options": {
+          "A": "The maximum amount of information that can be stored in a region of spacetime is proportional to the surface area of that region.",
+          "B": "The information contained in a physical system is encoded on the boundary of that system.",
+          "C": "The universe is a giant hologram, projected from a lower-dimensional surface.",
+          "D": "All of the above"
+        },
+        "answer": "D"
+      }, 
+      
+
+      
     ]
   }
   export default quizData;
