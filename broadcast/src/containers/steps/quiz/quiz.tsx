@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import QuizResult from "./quizResult";
+import QuizScoreModal from "./quizScoreModal";
 const Quiz = () => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [modal, setModal] = useState(false);
-  const [quizCompleted , setQuizCompleted] = useState(false)
+  const [quizCompleted , setQuizCompleted] = useState(false);
+  const [warning , setWarning] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
@@ -60,6 +62,14 @@ const Quiz = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
     setSelectedAnswer("");
   };
+  const handleSubmit =()=>{
+    if(Object.keys(selectedAnswers).length < quizData.questions.length){
+        setWarning(true)
+    }
+    else{
+        setModal(true)
+    }
+  }
   const closeModal = () => {
     navigate("/");
   };
@@ -70,7 +80,7 @@ const Quiz = () => {
     <div className="flex justify-center items-center w-full h-screen ">
       <div className="mt-20 ml-5 w-full max-w-lg shadow-lg rounded-lg p-8 ">
        
-        <p className="font-semibold">
+        <p className="font-semibold ml-1 flex">
           <span>{currentQuestionIndex + 1}. </span>
           {currentQuestion.question}
         </p>
@@ -100,11 +110,33 @@ const Quiz = () => {
           secondarybutton
           secondaryValue="Results"
           secondaryAction={()=>setQuizCompleted(true)}
-          classname="min-h-8"
+          classname="mt-20 ml-5 shadow-lg"
         >
-          <p className="text-center">Your total score is: {score}</p>
+          <QuizScoreModal score={score}/>
+          <div className="flex justify-center ">
+          <div className="mt-20 flex flex-col justify-center items-center rounded-full bg-yellow-100 w-36 h-36 border-4 border-red-300 "
+          >
+            <p className="text-orange-300 font-bold mt-5">SCORE</p>
+            <div className="bg-blue-300 rounded-b-full  h-20 w-full mt-7  flex justify-center items-center ">
+            <p className="text-3xl font-bold  ">{score}</p>
+            </div>
+          </div>
+          </div>
         </Modal>
-
+        <Modal
+        classname="min-h-[200px]"
+        isOpen={warning}
+        onClose={()=>setWarning(false)}
+        title="You Didn't Attend All The Questions"
+        primarybutton
+        primaryValue="Continue Quiz"
+        primaryAction={()=>setWarning(false)}
+        secondarybutton
+        secondaryValue="Submit"
+        secondaryAction={()=>{setWarning(false); setModal(true)}}
+        >
+            <p></p>
+        </Modal>
         <div className="flex flex-col">
           <div className=" flex justify-between items-center">
             <Button
@@ -141,7 +173,7 @@ const Quiz = () => {
               </Button>
             </div>
 
-            <Button onClick={() => setModal(true)} size="default"
+            <Button onClick={handleSubmit} size="default"
             className="bg-orange-400 hover:bg-orange-500 hover:border-none text-black font-bold"
             >
               SUBMIT
