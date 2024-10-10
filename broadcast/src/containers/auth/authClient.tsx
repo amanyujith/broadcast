@@ -16,6 +16,7 @@ import { jwtDecode } from "jwt-decode";
 // import { setLogoDetails } from "../../toolkit/reducers/logoSlice";
 import { getENVData } from "@/configs/enviornments";
 import Login from "../login/login";
+import { Loader } from "lucide-react";
 // import {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
 
 export interface tryLoginOptions {
@@ -235,8 +236,8 @@ export function AuthClient({ children }: { children: React.ReactNode }) {
             (isAuthenticated === activityState.SUCCESS || isAuthenticated === activityState.SILENTCHECK) ? children
                 : isAuthenticated === activityState.LOADING || ((isAuthenticated === activityState.SUCCESS || isAuthenticated === activityState.SILENTCHECK)) ?
                 <div className="h-screen w-screen flex justify-center items-center">
-                    {/* <Loader /> */}
-                    <div>Loading.....</div>
+                    <Loader />
+                    {/* <div>Loading.....</div> */}
                 </div>
                 // : permissionStatus === 403 ? 
                 // <PermissionChecker children={children} />

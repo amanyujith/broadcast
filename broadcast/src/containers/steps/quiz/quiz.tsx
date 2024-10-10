@@ -178,6 +178,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ThirtySecCounter from "../ThirtySecCounter";
+
+import QuizResult from "./quizResult";
+import QuizScoreModal from "./quizScoreModal";
+
 const Quiz = () => {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
@@ -187,6 +191,10 @@ const Quiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState<{
     [key: number]: string;
   }>({});
+
+  const [quizCompleted , setQuizCompleted] = useState(false);
+  const [warning , setWarning] = useState(false);
+  const [isElapsedTimeEnd, setIsElapsedTimeEnd] = useState(false);
 
   // const [isSaveDisabled , setIsSaveDisabled] = useState(false) ;
   const currentQuestion = quizData.questions[currentQuestionIndex];
@@ -246,10 +254,22 @@ const Quiz = () => {
     navigate("/");
   };
 
-  const handleSubmit = () => {
-    setModal(true);
+  const handleSubmit =()=>{
+    if(Object.keys(selectedAnswers).length < quizData.questions.length && !isElapsedTimeEnd){
+        setWarning(true)
+    }
+    else{
+        setModal(true)
+    }
   }
+
+  const handleTimeEnd = () => {
+    setIsElapsedTimeEnd(true)
+  }
+
  return (
+  <>
+  {!quizCompleted ? (
   <div className="flex justify-center items-center w-full min-h-screen bg-[#D3EE98]">
     <div className="svg-div absolute bottom-0 w-full h-2/3">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="">
@@ -266,7 +286,7 @@ const Quiz = () => {
    
     <div className=" relative quiz-box z-10 mt-20 ml-5 w-full max-w-lg shadow-lg rounded-3xl p-8 flex flex-col justify-between h-[600px] bg-white outline outline-1 outline-offset-2 outline-[#A0D683]">
     <div className="absolute w-full -top-14 left-0">
-      <ThirtySecCounter currentQuestionIndex={currentQuestionIndex} handleSave={handleSave} handleSubmit={handleSubmit}/>
+      <ThirtySecCounter currentQuestionIndex={currentQuestionIndex} handleSave={handleSave} handleSubmit={handleSubmit} handleTimeEnd={handleTimeEnd}/>
     </div> 
     
       <div className="quiz-header text-center mb-4">
@@ -295,22 +315,51 @@ const Quiz = () => {
       </div>
 
       <Modal
-        isOpen={modal}
-        onClose={closeModal}
-        title="Quiz Completed"
+          isOpen={modal}
+          onClose={closeModal}
+          title="Quiz Completed"
+          primarybutton
+          primaryValue="Close"
+          primaryAction={closeModal}
+          secondarybutton
+          secondaryValue="Results"
+          secondaryAction={()=>setQuizCompleted(true)}
+          classname="mt-20 ml-5 shadow-lg"
+        >
+          <QuizScoreModal score={score}/>
+          <div className="flex justify-center mt-20">
+            <div className="bg-[#FFAD60] w-40 h-40 rounded-full flex  flex-col justify-center items-center">
+                <div className="bg-[#D3EE98]  w-[150px] h-[75px]  rounded-t-full border-r-2 border-l-2 border-[#D3EE98] flex justify-center items-center">
+                    SCORE
+                </div>
+                <div className=" bg-[#FEFF9F] w-[150px] h-[75px] rounded-b-full border-r-2 border-l-2 border-[#FEFF9F] flex justify-center items-center">
+                    {score}
+                </div>
+            </div>
+          </div>
+        </Modal>
+
+
+        <Modal
+        classname="min-h-[200px]"
+        isOpen={warning}
+        onClose={()=>setWarning(false)}
+        title="You Didn't Attend All The Questions"
         primarybutton
-        primaryValue="Close"
-        primaryAction={closeModal}
-        classname="min-h-5"
-      >
-        <p className="text-center">Your total score is: {score}</p>
-      </Modal>
+        primaryValue="Continue Quiz"
+        primaryAction={()=>setWarning(false)}
+        secondarybutton
+        secondaryValue="Submit"
+        secondaryAction={()=>{setWarning(false); setModal(true)}}
+        >
+        </Modal>
+
 
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           
           <Button
-            onClick={() => setModal(true)}
+            onClick={handleSubmit}
             size="default"
             className="bg-[#FFAD60] text-black hover:bg-[#f17827] hover:text-white hover:border-none"
           >
@@ -372,6 +421,10 @@ const Quiz = () => {
       </div>
     </div>
   </div>
+  ): <QuizResult selectedAnswers={selectedAnswers} questionNumbers={questionNumbers}/>
+  
+          }
+  </>
 );
 
 };
