@@ -5,7 +5,7 @@ import React, { useRef } from 'react';
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     title?:string;
     classname?: string;
     primarybutton?: boolean;
