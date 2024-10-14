@@ -186,7 +186,7 @@ const ThirtySecCounter = ({
   const [timeLeft, setTimeLeft] = useState(TIME_INTERVAL);
 
   const { remainingTime , elapsedTime } = useCountdown({
-    isPlaying: true,
+    isPlaying: !modal,
     duration: TOTAL_TIME,
     colors: ["#72BF78", "#A0D683", "#D3EE98", "#FEFF9F", "#FF0000"],
     colorsTime: [
