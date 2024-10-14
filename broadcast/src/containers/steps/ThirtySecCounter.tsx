@@ -241,7 +241,7 @@ const ThirtySecCounter = ({
     );
   };
 
-  const progress = (TIME_INTERVAL - timeLeft) / TIME_INTERVAL;
+  const progress = (TIME_INTERVAL - timeLeft) / (TIME_INTERVAL);
 
   return (
     <>
