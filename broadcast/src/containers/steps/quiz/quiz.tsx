@@ -82,7 +82,7 @@ const Quiz = () => {
   };
 
   const handleSubmit =()=>{
-    if(Object.keys(selectedAnswers).length < quizData.questions.length && !isElapsedTimeEnd){
+    if((Object.keys(selectedAnswers).length < quizData.questions.length) && (!isElapsedTimeEnd)){
         setWarning(true)
     }
     else{
@@ -113,7 +113,7 @@ const Quiz = () => {
    
     <div className=" relative quiz-box z-10 mt-20 ml-5 w-full max-w-lg shadow-lg rounded-3xl p-8 flex flex-col justify-between h-[600px] bg-white outline outline-1 outline-offset-2 outline-[#A0D683]">
     <div className="absolute w-full -top-14 left-0">
-      <ThirtySecCounter currentQuestionIndex={currentQuestionIndex} handleSave={handleSave} handleSubmit={handleSubmit} handleTimeEnd={handleTimeEnd}/>
+      <ThirtySecCounter currentQuestionIndex={currentQuestionIndex} handleSave={handleSave} handleSubmit={handleSubmit} handleTimeEnd={handleTimeEnd} modal={modal}/>
     </div> 
     
       <div className="quiz-header text-center mb-4">

@@ -164,25 +164,28 @@ import quizData from "./JSON/quizData";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useCountdown } from "react-countdown-circle-timer";
 
+
 interface ThirtySecCounterProp {
+  modal: boolean;
   currentQuestionIndex: number;
   handleSave: () => void;
   handleSubmit: () => void;
   handleTimeEnd: () => void
 }
 
-const TIME_INTERVAL = 30;
+const TIME_INTERVAL = 10;
 const TOTAL_TIME = TIME_INTERVAL * quizData.questions.length;
 
 const ThirtySecCounter = ({
+  modal,
   currentQuestionIndex,
   handleSave,
   handleSubmit,
   handleTimeEnd,
 }: ThirtySecCounterProp) => {
   const [timeLeft, setTimeLeft] = useState(TIME_INTERVAL);
-  
-  const { remainingTime } = useCountdown({
+
+  const { remainingTime , elapsedTime } = useCountdown({
     isPlaying: true,
     duration: TOTAL_TIME,
     colors: ["#72BF78", "#A0D683", "#D3EE98", "#FEFF9F", "#FF0000"],
@@ -202,11 +205,11 @@ const ThirtySecCounter = ({
 
   useEffect(() => {
 
-    if(!(remainingTime > 0)) {
+    if(Math.round(elapsedTime) === TOTAL_TIME) {
       handleTimeEnd();
     }
     
-  }, [remainingTime])
+  }, [elapsedTime])
 
   useEffect(() => {
     if (!timeLeft) {
@@ -214,9 +217,14 @@ const ThirtySecCounter = ({
       return;
     }
 
+
     const intervalId = setInterval(() => {
       setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
     }, 1000);
+
+    if(modal) {
+      clearInterval(intervalId)
+    }
 
     return () => clearInterval(intervalId);
   }, [timeLeft]);
@@ -251,11 +259,11 @@ const ThirtySecCounter = ({
       </span>
       <div
         className={`absolute rounded-full -right-[10px] -top-[18px] bg-[#FFAD60] ${
-          remainingTime % TIME_INTERVAL - 1 === 0 ? "bg-orange-500" : ""
+          remainingTime % TIME_INTERVAL - 1 === 0 && !modal ? "bg-orange-500" : ""
         }`}
       >
         <CountdownCircleTimer
-          isPlaying
+          isPlaying = {!modal}
           strokeWidth={5}
           size={50}
           duration={TOTAL_TIME}
