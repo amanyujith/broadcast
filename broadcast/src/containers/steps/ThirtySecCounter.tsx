@@ -181,7 +181,7 @@ const ThirtySecCounter = ({
   handleTimeEnd,
 }: ThirtySecCounterProp) => {
   const [timeLeft, setTimeLeft] = useState(TIME_INTERVAL);
-
+  
   const { remainingTime } = useCountdown({
     isPlaying: true,
     duration: TOTAL_TIME,
