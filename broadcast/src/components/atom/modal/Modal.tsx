@@ -19,18 +19,18 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children,title, classname,primarybutton,primaryAction,primaryValue,secondarybutton,secondaryValue,secondaryAction }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const handleClickOutside = (event: React.MouseEvent) => {
-        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            onClose();
-        }
-    };
+    // const handleClickOutside = (event: React.MouseEvent) => {
+    //     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+    //         onClose();
+    //     }
+    // };
 
     if (!isOpen) return null;
 
     return (
         <div
             className={`fixed z-50 inset-0 bg-black bg-opacity-50 flex justify-center items-center `}
-            onClick={handleClickOutside}
+            // onClick={handleClickOutside}
         >
             <div
                 ref={modalRef}
