@@ -178,7 +178,7 @@ const TOTAL_TIME = TIME_INTERVAL * quizData.questions.length;
 
 const ThirtySecCounter = ({
   modal,
-  currentQuestionIndex,
+  currentQuestionIndex, 
   handleSave,
   handleSubmit,
   handleTimeEnd,
